@@ -105,6 +105,35 @@ extern "C" {
 #  endif
 #endif /*__GNUC__*/
 
+/**
+ * TODO
+ */
+#if __STDC_VERSION__ < 199901L
+#define restrict /* nothing */
+#endif
+
+/**
+ * TODO
+ */
+#ifdef _WIN32   /* If Windows, no matter 32 or 64 bit... */
+/* The _stricmp on Windows does exactly strcasecmp from the strings.h on Linux... */
+#define strcasecmp(a,b) _stricmp(a,b)
+/* Missing types from the sys/types.h */
+typedef int mode_t;
+#ifdef _WIN64
+    typedef signed __int64 ssize_t;
+#else
+    typedef signed int     ssize_t;
+#endif  /*_WIN64*/
+
+/* Values for the second argument to access(...) from the unistd.h
+   These may be OR'd together.  */
+#define R_OK    4       /* Test for read permission.  */
+#define W_OK    2       /* Test for write permission.  */
+#define X_OK    1       /* execute permission - unsupported in windows*/
+#define F_OK    0       /* Test for existence.  */
+#endif  /*_WIN32*/
+
 #include <vips/basic.h>
 
 #include <vips/buf.h>

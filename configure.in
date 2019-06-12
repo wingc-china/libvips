@@ -1,0 +1,16 @@
+#ifndef CONFIGURE_H_
+#define CONFIGURE_H_
+
+/*
+#define VIPS_VERSION        "@PROJECT_VERSION@"
+#define VIPS_MAJOR_VERSION  "@PROJECT_VERSION_MAJOR@"
+#define VIPS_MINOR_VERSION  "@PROJECT_VERSION_MINOR@"
+#define VIPS_MICRO_VERSION  "@PROJECT_VERSION_PATCH@"
+*/
+
+#define VIPS_PREFIX         "@INSTALL_DIR@"
+#define VIPS_LIBDIR         VIPS_PREFIX ## "/lib"
+#define VIPS_ICC_DIR        "C:\\Windows\\System32\\spool\\drivers\\color"
+#define GETTEXT_PACKAGE     "vips@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@"
+
+#endif /*CONFIGURE_H_*/
