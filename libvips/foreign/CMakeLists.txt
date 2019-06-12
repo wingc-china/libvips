@@ -31,7 +31,6 @@ add_library(libforeign OBJECT
   openslide2vips.c
   openslideload.c
   pdfload.c
-  pdfload_pdfium.c
   pngload.c
   pngsave.c
   ppm.c

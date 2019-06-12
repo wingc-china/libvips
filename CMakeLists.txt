@@ -60,7 +60,7 @@ endif()
 
 add_subdirectory(libvips)
 #TODO add_subdirectory(cplusplus)
-add_subdirectory(tools)
+#TODO NEXT! add_subdirectory(tools)
 #add_subdirectory(po)
 #add_subdirectory(man)
 #add_subdirectory(doc)
