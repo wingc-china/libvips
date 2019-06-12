@@ -54,6 +54,11 @@ if(MSVC)
   add_compile_definitions(HAVE_CONFIG_H)
   # OS_WIN32 has nothing to do with 32 or 64bit binary build, it just is a flag for Windows platform code to build
   add_compile_definitions(OS_WIN32)
+  # To make sure GLib using code does not init with gthread_init(), which is deprecated.
+  add_compile_definitions(HAVE_THREAD_NEW)
+  # TODO: As now my Expat is installed by the vcpkg as static, to make build pass I have to have this XML_STATIC
+  #       However it should be a flag by if the Expat is linked in statically or dynamically.
+  add_compile_definitions(XML_STATIC)
 endif()
 
 #TODO: VIPS_LIBS="$ZLIB_LIBS $MAGICK_LIBS $PNG_LIBS $IMAGEQUANT_LIBS $TIFF_LIBS $JPEG_LIBS $GTHREAD_LIBS $REQUIRED_LIBS $EXPAT_LIBS $PANGOFT2_LIBS $GSF_LIBS $FFTW_LIBS $ORC_LIBS $LCMS_LIBS $GIFLIB_LIBS $RSVG_LIBS $NIFTI_LIBS $PDFIUM_LIBS $POPPLER_LIBS $OPENEXR_LIBS $OPENSLIDE_LIBS $CFITSIO_LIBS $LIBWEBP_LIBS $LIBWEBPMUX_LIBS $MATIO_LIBS $EXIF_LIBS -lm"
