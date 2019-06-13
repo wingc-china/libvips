@@ -9,10 +9,15 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-message(STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
+message(STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE} (only if build using MinGW or Cygwin)")
 
-if (NOT INSTALL_DIR)
+if(NOT INSTALL_DIR)
   set(INSTALL_DIR "C:\\libvips")
+endif()
+
+#TODO Should be true if building libvips as dll...
+if(NOT CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS)
+  set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 endif()
 
 # Detect CPU type and whether we're building 64-bit or 32-bit code
@@ -49,7 +54,7 @@ configure_file(
     ${PROJECT_SOURCE_DIR}/libvips/include/config.h
 )
 
-if(MSVC)
+if (MSVC)
   # As we have our own config.h generated from the configure.in
   add_compile_definitions(HAVE_CONFIG_H)
   # OS_WIN32 has nothing to do with 32 or 64bit binary build, it just is a flag for Windows platform code to build
@@ -65,7 +70,7 @@ endif()
 
 add_subdirectory(libvips)
 #TODO add_subdirectory(cplusplus)
-#TODO NEXT! add_subdirectory(tools)
+add_subdirectory(tools)
 #add_subdirectory(po)
 #add_subdirectory(man)
 #add_subdirectory(doc)
