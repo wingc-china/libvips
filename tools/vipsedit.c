@@ -55,7 +55,9 @@ Copyright K.Martinez 30/6/93
 #include <string.h>
 #include <ctype.h>
 #include <sys/types.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif /*HAVE_UNISTD_H*/
 #include <locale.h>
 
 #include <vips/vips.h>
