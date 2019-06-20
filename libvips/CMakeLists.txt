@@ -1,5 +1,5 @@
 include_directories("include")
-
+ 
 add_subdirectory(resample)
 add_subdirectory(arithmetic)
 add_subdirectory(colour)
@@ -48,3 +48,15 @@ target_link_libraries(${PROJECT_NAME} PRIVATE unofficial::glib::gio
   unofficial::glib::glib
   unofficial::glib::gmodule
   unofficial::glib::gobject)
+
+#TODO: VIPS_LIBS="$ZLIB_LIBS $MAGICK_LIBS $PNG_LIBS $IMAGEQUANT_LIBS $TIFF_LIBS $JPEG_LIBS $GTHREAD_LIBS $REQUIRED_LIBS $PANGOFT2_LIBS $GSF_LIBS $FFTW_LIBS $ORC_LIBS $LCMS_LIBS $GIFLIB_LIBS $RSVG_LIBS $NIFTI_LIBS $PDFIUM_LIBS $POPPLER_LIBS $OPENEXR_LIBS $OPENSLIDE_LIBS $CFITSIO_LIBS $MATIO_LIBS $EXIF_LIBS -lm"
+
+#TODO swtich between JPEG, JPEG-turbo and JPEG-moz
+if(NOT JPEG_TURBO OR JPEG_MOZ)
+  find_package(JPEG REQUIRED)
+  target_link_libraries(${PROJECT_NAME} PRIVATE ${JPEG_LIBRARIES})
+endif()
+
+find_package(WebP CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${WebP_LIBRARIES})
+

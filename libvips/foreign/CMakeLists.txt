@@ -1,3 +1,8 @@
+# Because JPEG, PNG and WebP are must have...
+add_compile_definitions(HAVE_JPEG 
+  HAVE_PNG
+  HAVE_LIBWEBP)
+
 add_library(libforeign OBJECT
   analyze2vips.c
   analyzeload.c
@@ -12,6 +17,8 @@ add_library(libforeign OBJECT
   fitssave.c
   foreign.c
   gifload.c
+  heifload.c
+  heifsave.c
   jpeg2vips.c
   jpegload.c
   jpegsave.c
@@ -30,6 +37,7 @@ add_library(libforeign OBJECT
   openexrload.c
   openslide2vips.c
   openslideload.c
+  pdfiumload.c
   pdfload.c
   pngload.c
   pngsave.c
@@ -60,4 +68,16 @@ add_library(libforeign OBJECT
 
 find_package(unofficial-glib CONFIG REQUIRED)
 target_link_libraries(libforeign PRIVATE unofficial::glib::gio unofficial::glib::glib unofficial::glib::gmodule unofficial::glib::gobject)
+
+#TODO swtich between JPEG, JPEG-turbo and JPEG-moz
+if(NOT JPEG_TURBO OR JPEG_MOZ)
+  find_package(JPEG REQUIRED)
+  target_include_directories(libforeign PRIVATE ${JPEG_INCLUDE_DIR})
+endif()
+
+find_package(libpng REQUIRED)
+target_include_directories(libforeign PRIVATE ${libpng_INCLUDE_DIR})
+
+find_package(WebP REQUIRED)
+target_include_directories(libforeign PRIVATE ${WebP_INCLUDE_DIR})
 
