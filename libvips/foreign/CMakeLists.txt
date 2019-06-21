@@ -75,9 +75,11 @@ if(NOT JPEG_TURBO OR JPEG_MOZ)
   target_include_directories(libforeign PRIVATE ${JPEG_INCLUDE_DIR})
 endif()
 
-find_package(libpng REQUIRED)
-target_include_directories(libforeign PRIVATE ${libpng_INCLUDE_DIR})
+# ./vcpkg install libpng:x64-windows-static
+find_package(PNG REQUIRED)
+target_include_directories(libforeign PRIVATE ${PNG_INCLUDE_DIR})
 
+# ./vcpkg install libwebp[all]:x64-windows-static
 find_package(WebP REQUIRED)
 target_include_directories(libforeign PRIVATE ${WebP_INCLUDE_DIR})
 
