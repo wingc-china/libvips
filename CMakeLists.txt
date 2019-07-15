@@ -11,6 +11,8 @@ endif()
 
 message(STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE} (only if build using MinGW or Cygwin)")
 
+#include("windows.cmake")
+
 if(NOT INSTALL_DIR)
   set(INSTALL_DIR "C:\\libvips")
 endif()
@@ -57,13 +59,22 @@ configure_file(
 if (MSVC)
   # As we have our own config.h generated from the configure.in
   add_compile_definitions(HAVE_CONFIG_H)
+
   # OS_WIN32 has nothing to do with 32 or 64bit binary build, it just is a flag for Windows platform code to build
   add_compile_definitions(OS_WIN32)
+
+  # Have to set this BINARY_OPEN else the JPEG and PNG files cannot be parsed correctly.
+  add_compile_definitions(BINARY_OPEN)
+
   # To make sure GLib using code does not init with gthread_init(), which is deprecated.
   add_compile_definitions(HAVE_THREAD_NEW)
+
   # TODO: As now my Expat is installed by the vcpkg as static, to make build pass I have to have this XML_STATIC
   #       However it should be a flag by if the Expat is linked in statically or dynamically.
   add_compile_definitions(XML_STATIC)
+
+  # TODO: moz-jpeg might need to turn HAVE_JPEG_EXT_PARAMS on
+  #add_compile_definitions(HAVE_JPEG_EXT_PARAMS)
 endif()
 
 add_subdirectory(libvips)

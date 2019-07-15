@@ -37,7 +37,16 @@ add_library(${PROJECT_NAME} SHARED
   $<TARGET_OBJECTS:libmosaicing>
   $<TARGET_OBJECTS:libcreate>
 )
-set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/NODEFAULTLIB:\"libcmt\" /NODEFAULTLIB:\"libcmtd\"")
+
+  target_compile_options(
+    ${PROJECT_NAME} PRIVATE 
+    "/W3 /nologo /EHsc"
+    "$<$<CONFIG:Debug>:/MTd /Od /Ob0 /Zi /RTC1 /DDEBUG /D_DEBUG>"
+    "$<$<CONFIG:Release>:/MT /O2 /Ob2 /DNDEBUG>"
+  )
+
+# For the link warning LNK4098: defaultlib 'LIBCMTD' conflicts with use of other libs...
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/NODEFAULTLIB:libcmt /NODEFAULTLIB:libcmtd")
 
 find_package(EXPAT REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE EXPAT::EXPAT)
@@ -64,3 +73,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${PNG_LIBRARIES})
 find_package(WebP CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${WebP_LIBRARIES})
 
+# ./vcpkg install libexif[all]:x64-windows-static
+find_library(EXIF_LIB NAMES libexif)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${EXIF_LIB})

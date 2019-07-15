@@ -1,7 +1,9 @@
 # Because JPEG, PNG and WebP are must have...
-add_compile_definitions(HAVE_JPEG 
+add_compile_definitions(HAVE_JPEG
   HAVE_PNG
-  HAVE_LIBWEBP)
+  HAVE_LIBWEBP
+  HAVE_EXIF
+)
 
 add_library(libforeign OBJECT
   analyze2vips.c
@@ -82,4 +84,3 @@ target_include_directories(libforeign PRIVATE ${PNG_INCLUDE_DIR})
 # ./vcpkg install libwebp[all]:x64-windows-static
 find_package(WebP REQUIRED)
 target_include_directories(libforeign PRIVATE ${WebP_INCLUDE_DIR})
-
