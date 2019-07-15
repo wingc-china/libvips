@@ -3,6 +3,22 @@ add_compile_definitions(HAVE_JPEG
   HAVE_PNG
   HAVE_LIBWEBP
   HAVE_EXIF
+# TODO: Build to support next ...
+# TIFF
+# GIF
+# SVG
+# ----
+# TODO: Build to link next ...
+# pangoft2 (for text rendering)
+# fftw3 (for fourier transforms)
+# TODO: Better to have
+# HDR
+# PDF
+# PPM
+# OpenEXR
+# OpenSlide
+# TODO: Least to have
+# FITS, Matlab, CSV, Analyze, NIfTI, and DeepZoom
 )
 
 add_library(libforeign OBJECT
